@@ -39,7 +39,14 @@ let customerMethods = {
 
 // needs to display all of the items available for sale - include ids, names, and prices
 function displayProducts() {
-    console.log("success");
+    const config = require("./databaseConfig");
+    let connection = config.connection;
+
+    connection.query("SELECT * FROM products", function (err, res) {
+        if (err) throw err;
+        console.log(res);
+
+    });
 }
 
 // ask user for the ID of the product they would like to buy

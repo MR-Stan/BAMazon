@@ -1,31 +1,25 @@
--- delete the database if it already exists
 DROP DATABASE IF EXISTS bamazon;
 
--- create the database
 CREATE DATABASE bamazon;
 
--- use the database
 USE bamazon;
 
--- create a table in the database
 CREATE TABLE products
 (
-    -- creates a unique id for each entry
-    id INT NOT NULL
-    AUTO_INCREMENT,
+    item_id INTEGER(255)
+    AUTO_INCREMENT NOT NULL,
     product_name VARCHAR
-    (55) NULL,
+    (55) NOT NULL,
     department_name VARCHAR
-    (55) NULL,
-    price DECIMAL
-    (10,2) NULL,
+    (55) NOT NULL,
+    price NUMERIC
+    (20, 2) NOT NULL,
     stock_quantity INTEGER
-    (55),
+    (255) NOT NULL,
     PRIMARY KEY
-    (id)
+    (item_id)
 );
 
-    -- adds mock products to the database table
     INSERT INTO products
         (product_name, department_name, price, stock_quantity)
     VALUES

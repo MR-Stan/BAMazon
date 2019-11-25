@@ -1,6 +1,3 @@
-// npm mySQL package
-const mysql = require("mysql");
-
 // npm inquirer package
 const inquirer = require("inquirer");
 
@@ -12,9 +9,6 @@ const supervisor = require("./bamazonSupervisor");
 
 // manager scripts
 const manager = require("./bamazonManager")
-
-
-let SQLPassword = "";
 
 function start() {
     console.log("**************************");
@@ -33,9 +27,14 @@ function loginSQL() {
         }
     ]).then(data => {
         // set mySQL password to user input
-        SQLPassword = data.password;
-        // connect to SQL database
-        connectSQL();
+        let SQLPassword = data.password;
+
+        // export SQLpassword to databaseConfig.js
+        exports.SQLPassword = SQLPassword;
+
+        //const connection = require("./databaseConfig");
+
+        login();
     })
 }
 
@@ -64,31 +63,6 @@ function login() {
             case "Manager":
                 manager.chooseTransaction();
                 break;
-        }
-    });
-}
-
-function connectSQL() {
-    // create the connection information for the sql database
-    let connection = mysql.createConnection({
-        host: "localhost",
-
-        // Your port; if not 3306
-        port: 3306,
-
-        // Your username
-        user: "root",
-
-        // Your password
-        password: SQLPassword,
-        database: "bamazon"
-    });
-
-    // connect to the mysql server and sql database
-    connection.connect(function (err) {
-        if (err) throw err;
-        else {
-            login();
         }
     });
 }
