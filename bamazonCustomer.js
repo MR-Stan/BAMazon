@@ -43,30 +43,63 @@ function displayProducts() {
     const config = require("./databaseConfig");
     let connection = config.connection;
 
-    connection.query("SELECT * FROM products", function (err, res) {
-        if (err) throw err;
-        for (i = 0; i < res.length; i++) {
-            console.log("---------------------------------------------------------------------------------------------------")
-            console.log(
-                "Item ID: " + res[i].item_id +
-                " | Name: " + res[i].product_name +
-                " | Department: " + res[i].department_name +
-                " | Price: $" + res[i].price +
-                " | Quantity in Stock: " + res[i].stock_quantity
-            );
-            console.log("---------------------------------------------------------------------------------------------------")
-            if (i === res.length - 1) {
-                //connection.end();
-                customerMethods.chooseTransaction();
+    connection.query(
+        "SELECT * FROM products",
+        function (err, res) {
+            if (err) throw err;
+            for (i = 0; i < res.length; i++) {
+                console.log("---------------------------------------------------------------------------------------------------")
+                console.log(
+                    "Item ID: " + res[i].item_id +
+                    " | Name: " + res[i].product_name +
+                    " | Department: " + res[i].department_name +
+                    " | Price: $" + res[i].price +
+                    " | Quantity in Stock: " + res[i].stock_quantity
+                );
+                console.log("---------------------------------------------------------------------------------------------------")
+                if (i === res.length - 1) {
+                    //connection.end();
+                    customerMethods.chooseTransaction();
+                }
             }
-        }
-    });
+        });
 }
 
 // ask user for the ID of the product they would like to buy
 // ask user how many units they would like to buy
 function addCart() {
-    checkOrder();
+    const config = require("./databaseConfig");
+    let connection = config.connection;
+
+    inquirer.prompt([
+        {
+            type: 'number',
+            name: 'itemid',
+            message: 'Enter the ID number of the item you\'d like to purchase: ',
+        }
+    ]).then(data => {
+        connection.query(
+            "SELECT * FROM products WHERE item_id =" + data.itemid,
+            {
+                item_id: data.itemid
+            },
+            function (err, res) {
+                if (err) throw err;
+                console.log("---------------------------------------------------------------------------------------------------")
+                console.log(
+                    "Item ID: " + res[0].item_id +
+                    " | Name: " + res[0].product_name +
+                    " | Department: " + res[0].department_name +
+                    " | Price: $" + res[0].price +
+                    " | Quantity in Stock: " + res[0].stock_quantity
+                );
+                console.log("---------------------------------------------------------------------------------------------------")
+            }
+        );
+        // if stock > 0, prompt the user how many they want to purchse, based on that amount call checkorder, if there is sufficient amount, ask the user to confirm, push or cart and update db
+        // checkOrder();
+        // cart.push(res);
+    });
 }
 
 // displays items in user's cart

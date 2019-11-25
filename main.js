@@ -29,10 +29,7 @@ function loginSQL() {
         // set mySQL password to user input
         let SQLPassword = data.password;
 
-        // export SQLpassword to databaseConfig.js
         exports.SQLPassword = SQLPassword;
-
-        //const connection = require("./databaseConfig");
 
         login();
     })
