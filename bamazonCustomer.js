@@ -1,31 +1,34 @@
-var mysql = require("mysql");
-var inquirer = require("inquirer");
+// prompts customer to select a transaction
+function login() {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'transaction',
+            message: 'Select a transaction:',
+            choices: [
+                'Display Products',
+                'Add to Cart',
+                'Show Items in Cart',
+                'Check Out'
+            ]
+        }
+    ]).then(data => {
+        // determines which file run function to call - each contains unique functionality
+        switch (data.transaction) {
+            case "Display Products":
+                displayProducts();
+                break;
+            case "Add to Cart":
 
-// create the connection information for the sql database
-var connection = mysql.createConnection({
-    host: "localhost",
+                break;
+            case "Show Items in Cart":
 
-    // Your port; if not 3306
-    port: 3306,
+                break;
+            case "Check Out":
 
-    // Your username
-    user: "root",
-
-    // Your password
-    password: "", // must enter password
-    database: "bamazon"
-});
-
-// connect to the mysql server and sql database
-connection.connect(function (err) {
-    if (err) throw err;
-    // run the start function after the connection is made to prompt the user
-    run();
-});
-
-function run() {
-    displayProducts();
-    whatBuy();
+                break;
+        }
+    });
 }
 
 // needs to display all of the items available for sale - include ids, names, and prices
@@ -33,17 +36,26 @@ function displayProducts() {
 
 }
 
-function howMany() {
+// ask user for the ID of the product they would like to buy
+// ask user how many units they would like to buy
+function addCart() {
 
 }
 
+// check the user inputs from howMany to see if the store has enough of the product
 function checkOrder() {
+    // should be greater than user input not 0
     if (item.quantity > 0) {
-
+        // update sql database by removing the requested amount
+        // show the customer their total
     }
     else {
         console.log(`Dear Valued Customer, \nWe apologize for the inconvenience, 
         but we're currently out of stock in your selected product. Please select
-        another item and try again.`)
+        another item.`)
     }
+}
+
+function checkCart() {
+
 }
