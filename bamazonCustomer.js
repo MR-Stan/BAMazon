@@ -1,5 +1,7 @@
-// prompts customer to select a transaction
-function login() {
+class Customer {
+
+    // prompts customer to select a transaction
+    function chooseTransaction() {
     inquirer.prompt([
         {
             type: 'list',
@@ -19,13 +21,13 @@ function login() {
                 displayProducts();
                 break;
             case "Add to Cart":
-
+                addCart();
                 break;
             case "Show Items in Cart":
-
+                checkCart();
                 break;
             case "Check Out":
-
+                checkOut();
                 break;
         }
     });
@@ -47,15 +49,24 @@ function checkOrder() {
     // should be greater than user input not 0
     if (item.quantity > 0) {
         // update sql database by removing the requested amount
-        // show the customer their total
+        // show the customer their total for that item
     }
     else {
         console.log(`Dear Valued Customer, \nWe apologize for the inconvenience, 
-        but we're currently out of stock in your selected product. Please select
-        another item.`)
+            but we're currently out of stock in your selected product. Please select
+            another item.`)
     }
 }
 
+// displays items in user's cart
 function checkCart() {
 
 }
+
+// shows user all items in cart and sum total
+function checkOut() {
+
+}
+}
+
+module.exports = new Customer();

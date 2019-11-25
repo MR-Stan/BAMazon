@@ -1,4 +1,4 @@
-
+class Manager {
 // inquirer prompt for cases
 
 switch (action) {
@@ -38,3 +38,6 @@ function addInventory() {
 function addProduct() {
 
 }
+}
+
+module.exports = new Manager();

@@ -1,5 +1,18 @@
-let mysql = require("mysql");
-let inquirer = require("inquirer");
+// npm mySQL package
+const mysql = require("mysql");
+
+// npm inquirer package
+const inquirer = require("inquirer");
+
+// customer scripts
+const Customer = require("./bamazonCustomer");
+
+// supervisor scripts
+const Supervisor = require("./bamazonSupervisor");
+
+// manager scripts
+const Manager = require("./bamazonManager")
+
 
 let SQLPassword = "";
 
@@ -43,13 +56,13 @@ function login() {
         // determines which file run function to call - each contains unique functionality
         switch (data.user) {
             case "Customer":
-                console.log("Nice braj");
+                // call function
                 break;
             case "Supervisor":
-                console.log("Nice braj");
+                // call function
                 break;
             case "Manager":
-                console.log("Nice braj");
+                // call function
                 break;
         }
     });
