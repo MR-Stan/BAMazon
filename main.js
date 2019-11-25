@@ -56,13 +56,13 @@ function login() {
         // determines which file run function to call - each contains unique functionality
         switch (data.user) {
             case "Customer":
-                // call function
+                Customer.chooseTransaction();
                 break;
             case "Supervisor":
-                // call function
+                Supervisor.chooseTransaction();
                 break;
             case "Manager":
-                // call function
+                Manager.chooseTransaction();
                 break;
         }
     });
