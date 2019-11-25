@@ -1,36 +1,39 @@
-class Manager {
-// inquirer prompt for cases
+// npm inquirer package
+const inquirer = require("inquirer");
 
-    function chooseTransaction() {
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: 'transaction',
-            message: 'Select a transaction:',
-            choices: [
-                'View All Available Products',
-                'View Low Inventory Products',
-                'Add Inventory to a Product',
-                'Add New Product'
-            ]
-        }
-    ]).then(data => {
-        // determines which file run function to call - each contains unique functionality
-        switch (data.transaction) {
-            case "View All Available Products":
-                viewProducts();
-                break;
-            case "View Low Inventory Products":
-                lowInventory();
-                break;
-            case "Add Inventory to a Product":
-                addInventory();
-                break;
-            case "Add New Product":
-                addProduct();
-                break;
-        }
-    });
+let managerMethods = {
+    // prompts customer to select a transaction
+    chooseTransaction: function () {
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'transaction',
+                message: 'Select a transaction:',
+                choices: [
+                    'View All Available Products',
+                    'View Low Inventory Products',
+                    'Add Inventory to a Product',
+                    'Add New Product'
+                ]
+            }
+        ]).then(data => {
+            // determines which file run function to call - each contains unique functionality
+            switch (data.transaction) {
+                case "View All Available Products":
+                    viewProducts();
+                    break;
+                case "View Low Inventory Products":
+                    lowInventory();
+                    break;
+                case "Add Inventory to a Product":
+                    addInventory();
+                    break;
+                case "Add New Product":
+                    addProduct();
+                    break;
+            }
+        });
+    }
 }
 
 // list available items - IDs, names, prices, and quantities
@@ -52,6 +55,6 @@ function addInventory() {
 function addProduct() {
 
 }
-}
 
-module.exports = new Manager();
+
+module.exports = managerMethods;

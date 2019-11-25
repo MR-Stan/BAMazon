@@ -1,30 +1,32 @@
-class Supervisor {
+// npm inquirer package
+const inquirer = require("inquirer");
 
-// inquirer prompt fto run functions
-    function chooseTransaction() {
-    inquirer.prompt([
-        {
-            type: 'list',
-            name: 'transaction',
-            message: 'Select a transaction:',
-            choices: [
-                'View Sales by Department',
-                'Add New Department'
-            ]
-        }
-    ]).then(data => {
-        // determines which file run function to call - each contains unique functionality
-        switch (data.transaction) {
-            case "View Sales by Department":
-                viewSales();
-                break;
-            case "Add New Department":
-                addDept();
-                break;
-        }
-    });
+let supervisorMethods = {
+    // inquirer prompt fto run functions
+    chooseTransaction: function () {
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'transaction',
+                message: 'Select a transaction:',
+                choices: [
+                    'View Sales by Department',
+                    'Add New Department'
+                ]
+            }
+        ]).then(data => {
+            // determines which file run function to call - each contains unique functionality
+            switch (data.transaction) {
+                case "View Sales by Department":
+                    viewSales();
+                    break;
+                case "Add New Department":
+                    addDept();
+                    break;
+            }
+        });
+    }
 }
-
 
 
 // view sales by department
@@ -37,6 +39,6 @@ function addDept() {
 
 }
 
-}
 
-module.exports = new Supervisor();
+
+module.exports = supervisorMethods;

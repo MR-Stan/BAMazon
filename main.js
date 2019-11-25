@@ -5,13 +5,13 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 
 // customer scripts
-const Customer = require("./bamazonCustomer");
+const customer = require("./bamazonCustomer");
 
 // supervisor scripts
-const Supervisor = require("./bamazonSupervisor");
+const supervisor = require("./bamazonSupervisor");
 
 // manager scripts
-const Manager = require("./bamazonManager")
+const manager = require("./bamazonManager")
 
 
 let SQLPassword = "";
@@ -56,13 +56,13 @@ function login() {
         // determines which file run function to call - each contains unique functionality
         switch (data.user) {
             case "Customer":
-                Customer.chooseTransaction();
+                customer.chooseTransaction();
                 break;
             case "Supervisor":
-                Supervisor.chooseTransaction();
+                supervisor.chooseTransaction();
                 break;
             case "Manager":
-                Manager.chooseTransaction();
+                manager.chooseTransaction();
                 break;
         }
     });
