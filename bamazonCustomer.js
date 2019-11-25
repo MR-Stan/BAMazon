@@ -39,13 +39,27 @@ let customerMethods = {
 
 // needs to display all of the items available for sale - include ids, names, and prices
 function displayProducts() {
+    // need to move these outside of function
     const config = require("./databaseConfig");
     let connection = config.connection;
 
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
-        console.log(res);
-
+        for (i = 0; i < res.length; i++) {
+            console.log("---------------------------------------------------------------------------------------------------")
+            console.log(
+                "Item ID: " + res[i].item_id +
+                " | Name: " + res[i].product_name +
+                " | Department: " + res[i].department_name +
+                " | Price: $" + res[i].price +
+                " | Quantity in Stock: " + res[i].stock_quantity
+            );
+            console.log("---------------------------------------------------------------------------------------------------")
+            if (i === res.length - 1) {
+                //connection.end();
+                customerMethods.chooseTransaction();
+            }
+        }
     });
 }
 
