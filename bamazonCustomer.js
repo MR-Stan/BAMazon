@@ -3,6 +3,8 @@ const inquirer = require("inquirer");
 
 let currentItem = {};
 
+let cart = [];
+
 let customerMethods = {
     // prompts customer to select a transaction
     chooseTransaction: function () {
@@ -120,7 +122,50 @@ function addCart() {
                                     message: 'How many would you like to purchase?',
                                 }
                             ]).then(data => {
-                                checkOrder(data.quantity);
+                                let quantity = data.quantity;
+                                if (quantity <= currentItem.stock_quantity) {
+                                    let total = parseFloat(data.quantity * currentItem.price);
+                                    inquirer.prompt([
+                                        {
+                                            type: 'list',
+                                            name: 'answer',
+                                            message: 'Are you sure you want to buy ' + quantity + " " + currentItem.product_name + "'s for $" + total + "?",
+                                            choices: [
+                                                'Yes',
+                                                'No'
+                                            ]
+                                        }
+                                    ]).then(data => {
+                                        if (data.answer === 'Yes') {
+                                            let newStock = parseInt(currentItem.stock_quantity - quantity);
+                                            currentItem.stock_quantity = quantity;
+                                            cart.push(currentItem);
+                                            connection.query(
+                                                "UPDATE products SET ? WHERE ?",
+                                                [
+                                                    {
+                                                        stock_quantity: newStock
+                                                    },
+                                                    {
+                                                        item_id: currentItem.item_id
+                                                    }
+                                                ],
+                                                function (err) {
+                                                    if (err) throw err;
+                                                    console.log(currentItem.stock_quantity + " " + currentItem.product_name + "'s added to cart.");
+                                                    customerMethods.chooseTransaction();
+                                                });
+                                        }
+                                        else {
+                                            console.log("No problem. Exiting to menu.")
+                                            customerMethods.chooseTransaction();
+                                        }
+                                    });
+                                }
+                                else {
+                                    console.log("Dear Valued Customer, \nWe sincerely apologize for the inconvenience, but we're currently out of stock in your selected product. Please select another item.");
+                                    addCart();
+                                }
                             });
                         }
                         else {
@@ -132,13 +177,8 @@ function addCart() {
                     console.log("Sorry! " + res[0].product_name + " is currently out of stock. Please try another item")
                     addCart();
                 }
-
             }
-
         );
-        // if stock > 0, prompt the user how many they want to purchse, based on that amount call checkorder, if there is sufficient amount, ask the user to confirm, push or cart and update db
-        // checkOrder();
-        // cart.push(res);
     });
 }
 
@@ -152,34 +192,4 @@ function checkOut() {
 
 }
 
-// check the user inputs from howMany to see if the store has enough of the product
-function checkOrder(quantity) {
-    if (quantity <= currentItem.stock_quantity) {
-        let total = parseFloat(quantity * currentItem.price);
-        inquirer.prompt([
-            {
-                type: 'list',
-                name: 'answer',
-                message: 'Are you sure you want to buy ' + quantity + " " + currentItem.product_name + "'s for $" + total + "?",
-                choices: [
-                    'Yes',
-                    'No'
-                ]
-            }
-        ]).then(data => {
-            if (data.answer === 'Yes') {
-                // update sql database by removing the requested amount
-            }
-            else {
-                console.log("No problem. Exiting to menu.")
-                customerMethods.chooseTransaction();
-            }
-
-        });
-    }
-    else {
-        console.log("Dear Valued Customer, \nWe sincerely apologize for the inconvenience, but we're currently out of stock in your selected product. Please select another item.");
-        addCart();
-    }
-}
 module.exports = customerMethods;
