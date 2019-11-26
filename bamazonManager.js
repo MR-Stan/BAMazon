@@ -4,6 +4,8 @@ const inquirer = require("inquirer");
 // customer scripts
 const customer = require("./bamazonCustomer");
 
+const Product = require("./product");
+
 let managerMethods = {
     // prompts customer to select a transaction
     chooseTransaction: function () {
@@ -101,9 +103,33 @@ function addInventory() {
 
 }
 
-// add new item to store
+// add new product to store
 function addProduct() {
-
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter the product\'s name:'
+        },
+        {
+            type: 'input',
+            name: 'department',
+            message: 'Enter the product\'s department:'
+        },
+        {
+            type: 'input',
+            name: 'price',
+            message: 'Enter the product\'s price ($):'
+        },
+        {
+            type: 'input',
+            name: 'quantity',
+            message: 'Enter the product\'s stock quantity:'
+        }
+    ]).then(data => {
+        let newProduct = new Product(data.name, data.department, data.price, data.quantity)
+        console.log(newProduct);
+    });
 }
 
 
