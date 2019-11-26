@@ -184,12 +184,28 @@ function addCart() {
 
 // displays items in user's cart
 function checkCart() {
+    let total = 0;
+    for (i = 0; i < cart.length; i++) {
+        total = total + (cart[i].price * cart[i].stock_quantity);
+        console.log("---------------------------------------------------------------------------------------------------")
+        console.log(
+            "Name: " + cart[i].product_name +
+            " | Department: " + cart[i].department_name +
+            " | Price: $" + cart[i].price +
+            " | Quantity in Cart: " + cart[i].stock_quantity
+        );
+        console.log("---------------------------------------------------------------------------------------------------")
+    }
+    console.log("---------------------------------------------------------------------------------------------------")
+    console.log("Total: $" + total);
+    console.log("---------------------------------------------------------------------------------------------------")
 
+    customerMethods.chooseTransaction();
 }
 
 // shows user all items in cart and sum total
 function checkOut() {
-
+    console.log("Coming Soon!");
 }
 
 module.exports = customerMethods;
