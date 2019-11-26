@@ -23,6 +23,9 @@ let supervisorMethods = {
                 case "Add New Department":
                     addDept();
                     break;
+                case "Exit":
+                    process.exit();
+                    break;
             }
         });
     }
