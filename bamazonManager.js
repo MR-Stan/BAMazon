@@ -71,7 +71,29 @@ function viewProducts() {
 
 // list all items with count < 5
 function lowInventory() {
+    // need to move these outside of function
+    const config = require("./databaseConfig");
+    let connection = config.connection;
 
+    connection.query(
+        "SELECT * FROM products WHERE stock_quantity < 5",
+        function (err, res) {
+            if (err) throw err;
+            for (i = 0; i < res.length; i++) {
+                console.log("---------------------------------------------------------------------------------------------------")
+                console.log(
+                    "Item ID: " + res[i].item_id +
+                    " | Name: " + res[i].product_name +
+                    " | Department: " + res[i].department_name +
+                    " | Price: $" + res[i].price +
+                    " | Quantity in Stock: " + res[i].stock_quantity
+                );
+                console.log("---------------------------------------------------------------------------------------------------")
+                if (i === res.length - 1) {
+                    customer.chooseTransaction();
+                }
+            }
+        });
 }
 
 // display prompt that will let user add more of any item in store
