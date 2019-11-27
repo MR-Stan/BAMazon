@@ -100,7 +100,7 @@ function lowInventory() {
 
 // display prompt that will let user add more of any item in store
 function addInventory() {
-
+    // copy and update purchase function from customer
 }
 
 // add new product to store
@@ -128,7 +128,20 @@ function addProduct() {
         }
     ]).then(data => {
         let newProduct = new Product(data.name, data.department, data.price, data.quantity)
-        console.log(newProduct);
+
+        const config = require("./databaseConfig");
+        let connection = config.connection;
+
+        let sql = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?)"
+        let values = [newProduct.product_name, newProduct.department_name, newProduct.price, newProduct.stock_quantity];
+
+
+        connection.query(sql, [values], function (err) {
+            if (err) throw err;
+            else {
+                console.log(newProduct.product_name + " added to products.");
+            }
+        });
     });
 }
 
