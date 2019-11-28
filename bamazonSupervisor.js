@@ -39,7 +39,19 @@ function viewSales() {
 }
 
 function addDept() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter the new department\'s name:'
+        }
+    ]).then(data => {
+        const config = require("./databaseConfig");
+        let connection = config.connection;
 
+        // let sql = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?)"
+        // let values = [newProduct.product_name, newProduct.department_name, newProduct.price, newProduct.stock_quantity];
+    });
 }
 
 
