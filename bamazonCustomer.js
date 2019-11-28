@@ -204,6 +204,7 @@ function checkCart() {
 }
 
 // shows user all items in cart and sum total
+// price * qty added to product_sales column in products
 function checkOut() {
     console.log("Coming Soon!");
 }
