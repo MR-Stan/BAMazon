@@ -17,7 +17,7 @@ CREATE TABLE products
     stock_quantity INTEGER
     (255) NOT NULL,
     product_sales NUMERIC
-    (20,2) NULL,
+    (20,2) NOT NULL DEFAULT 0.00,
     PRIMARY KEY
     (item_id)
 );

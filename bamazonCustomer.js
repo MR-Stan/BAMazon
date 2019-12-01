@@ -204,13 +204,12 @@ function checkCart() {
 }
 
 // removes items from cart and database
-// price * qty added to product_sales column in products
 function checkOut() {
     inquirer.prompt([
         {
             type: 'list',
             name: 'answer',
-            message: 'Your total is ' + 'blank' + '. Is this correct?',
+            message: 'Would you like to check out?',
             choices: [
                 'Yes',
                 'No'
@@ -218,14 +217,16 @@ function checkOut() {
         }
     ]).then(data => {
         if (data.answer === 'Yes') {
+            let total = 0;
             const config = require("./databaseConfig");
             const connection = config.connection;
             console.log("Processing... Please wait.");
             for (i = 0; i < cart.length; i++) {
-
+                // total cost of items being purchased
+                total = parseFloat(cart[i].stock_quantity * cart[i].price);
                 // updates product_sales column
                 connection.query(
-                    "UPDATE products SET product_sales = (product_sales +" + (parseFloat(cart[i].stock_quantity * cart[i].price)) + ") WHERE ?",
+                    "UPDATE products SET product_sales = (product_sales +" + total + ") WHERE ?",
                     [
                         {
                             product_name: cart[i].product_name
@@ -234,7 +235,6 @@ function checkOut() {
                     function (err) {
                         if (err) throw err;
                     });
-                console.log(cart[i].stock_quantity * cart[i].price)
                 // removes items in cart from database
                 connection.query(
                     "UPDATE products SET stock_quantity = (stock_quantity -" + cart[i].stock_quantity + ") WHERE ?",
