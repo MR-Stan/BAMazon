@@ -203,10 +203,59 @@ function checkCart() {
     customerMethods.chooseTransaction();
 }
 
-// shows user all items in cart and sum total
+// removes items from cart and database
 // price * qty added to product_sales column in products
 function checkOut() {
-    console.log("Coming Soon!");
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'answer',
+            message: 'Your total is ' + 'blank' + '. Is this correct?',
+            choices: [
+                'Yes',
+                'No'
+            ]
+        }
+    ]).then(data => {
+        if (data.answer === 'Yes') {
+            const config = require("./databaseConfig");
+            const connection = config.connection;
+            console.log("Processing... Please wait.");
+            for (i = 0; i < cart.length; i++) {
+
+                // updates product_sales column
+                connection.query(
+                    "UPDATE products SET product_sales = (product_sales +" + (parseFloat(cart[i].stock_quantity * cart[i].price)) + ") WHERE ?",
+                    [
+                        {
+                            product_name: cart[i].product_name
+                        }
+                    ],
+                    function (err) {
+                        if (err) throw err;
+                    });
+                console.log(cart[i].stock_quantity * cart[i].price)
+                // removes items in cart from database
+                connection.query(
+                    "UPDATE products SET stock_quantity = (stock_quantity -" + cart[i].stock_quantity + ") WHERE ?",
+                    [
+                        {
+                            product_name: cart[i].product_name
+                        }
+                    ],
+                    function (err) {
+                        if (err) throw err;
+                    });
+            }
+            // empty the cart after purchase
+            cart = [];
+            console.log("Transaction complete.")
+        }
+        else {
+            console.log("Transaction aborted.");
+            customerMethods.chooseTransaction();
+        }
+    });
 }
 
 module.exports = customerMethods;
