@@ -2,7 +2,7 @@
 const inquirer = require("inquirer");
 
 let supervisorMethods = {
-    // inquirer prompt fto run functions
+    // inquirer prompt to run functions
     chooseTransaction: function () {
         inquirer.prompt([
             {
@@ -44,13 +44,24 @@ function addDept() {
             type: 'input',
             name: 'name',
             message: 'Enter the new department\'s name:'
+        },
+        {
+            type: 'input',
+            name: 'overhead',
+            message: 'Enter the new department\'s over head costs:'
         }
     ]).then(data => {
         const config = require("./databaseConfig");
         let connection = config.connection;
-
-        // let sql = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?)"
-        // let values = [newProduct.product_name, newProduct.department_name, newProduct.price, newProduct.stock_quantity];
+        let values = [data.name, data.overhead];
+        connection.query(
+            "INSERT INTO departments (department_name, over_head_costs) VALUES (?)",
+            [values],
+            function (err) {
+                if (err) throw err;
+            });
+        console.log(data.name + " successfully added to departments.")
+        supervisorMethods.chooseTransaction();
     });
 }
 
