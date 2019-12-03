@@ -23,23 +23,23 @@ node main.js
 ## Operation
 All functions can be reached by answering inquirer prompts. To being the user must enter their mySQL password. From there they can choose from three access levels: Customer, Supervisor, and Manager.
 
-<!-- ![log-data](gifs/log.gif) -->
+![log-data](gifs/initial.gif)
 
 ### Customer
 * Display Products
-<!-- ![log-data](gifs/log.gif) -->
+![log-data](gifs/Customer/display.gif)
 
 * Add to Cart
-<!-- ![log-data](gifs/log.gif) -->
+![log-data](gifs/Customer/addtocart.gif)
 
 * Show Items in Cart
-<!-- ![log-data](gifs/log.gif) -->
+![log-data](gifs/Customer/showcart.gif)
 
 * Check Out
-<!-- ![log-data](gifs/log.gif) -->
+![log-data](gifs/Customer/checkout.gif)
 
 * Exit
-<!-- ![log-data](gifs/log.gif) -->
+![log-data](gifs/Customer/exit.gif)
 
 ### Supervisor
 * View Sales by Department
