@@ -15,53 +15,51 @@ npm i
 ```
 4. Run the SQL script in the bamazon.sql file
 
+5. Navigate into the BAMazon folder in node run main.js
+```sh
+node main.js
+```
+
 ## Operation
-All functions can be reached by following the inquirer prompts
+All functions can be reached by answering inquirer prompts. To being the user must enter their mySQL password. From there they can choose from three access levels: Customer, Supervisor, and Manager.
 
-<!-- ### concert-this
-Command: 'node liri.js concert-this (artist / band name)'
+<!-- ![log-data](gifs/log.gif) -->
 
-The BandsInTown API is queried for upcoming concerts and returns:
-* The name of the venue
-* The venue location
-* The date of the event (MM/DD/YYYY)
+### Customer
+* Display Products
+<!-- ![log-data](gifs/log.gif) -->
 
-![concert-this gif](gifs/concert-this.gif)
+* Add to Cart
+<!-- ![log-data](gifs/log.gif) -->
 
-### spotify-this-song
-Command: 'node liri.js spotify-this-song (song name)'
+* Show Items in Cart
+<!-- ![log-data](gifs/log.gif) -->
 
-The Spotify API is queried for song information:
-* Song title
-* Album title
-* Artist(s) name
-* Preview URL
+* Check Out
+<!-- ![log-data](gifs/log.gif) -->
 
-![spotify-this-song gif](gifs/spotify-this-song.gif)
+* Exit
+<!-- ![log-data](gifs/log.gif) -->
 
-### movie-this
-Command: 'node liri.js movie-this (movie name)'
+### Supervisor
+* View Sales by Department
+<!-- ![log-data](gifs/log.gif) -->
 
-The OMDB API is queried for movie information:
-* Title
-* Year released
-* IMDB rating
-* Rotten Tomatoes rating
-* Country
-* Language
-* Plot
-* Actors
+* Add New Department
+<!-- ![log-data](gifs/log.gif) -->
 
-![movie-this gif](gifs/movie-this.gif)
+* Exit
+<!-- ![log-data](gifs/log.gif) -->
 
-### do-what-it-says
-Command: 'node liri.js do-what-it-says'
+### Manager
+* View Products for Sale
+<!-- ![log-data](gifs/log.gif) -->
 
-Note: The outcome of the above command is determined by the contents of the random.txt file
+* View Low Inventory
+<!-- ![log-data](gifs/log.gif) -->
 
-![do-what-it-says gif](gifs/do-what-it-says.gif)
+* Add to Inventory
+<!-- ![log-data](gifs/log.gif) -->
 
-### log.txt
-Each time a command is entered, log.txt is appended with the resulting data
-
-![log-data](gifs/log.gif) -->
+* Add New Product
+<!-- ![log-data](gifs/log.gif) -->
